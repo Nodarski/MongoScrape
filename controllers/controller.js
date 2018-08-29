@@ -32,11 +32,13 @@ module.exports = function(app) {
                 console.log(postSumm);
                 console.log(postImg);
                 console.log(postTitle)
-                if($(this).find('.item-image-src').attr("src") === false){
-                    var postImg = 'http://lakefarmbeef.co.nz/wp-content/themes/lakefarm/img/noimage.png'
+                if($(this).find('.item-image-src').attr("src")){
+                    var postImg = $(this).find('.item-image-src').attr("src")
+
                 }
                 else {
-                    var postImg = $(this).find('.item-image-src').attr("src")
+                    var postImg = 'http://lakefarmbeef.co.nz/wp-content/themes/lakefarm/img/noimage.png'
+
 
                 }
 
