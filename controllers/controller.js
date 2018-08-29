@@ -28,12 +28,16 @@ module.exports = function(app) {
                 let postSumm = $(this).find('.item-description').text();
                 let postTitle = $(this).find('.item-title', 'a').text();
                 // let postLink =$(this).children('.item-title', 'a').attr('href');
-                let postImg = $(this).find('.item-image-src').attr("src");
+                // let postImg = $(this).find('.item-image-src').attr("src");
                 console.log(postSumm);
                 console.log(postImg);
                 console.log(postTitle)
-                if(postImg === null){
-                   let postImg = 'http://lakefarmbeef.co.nz/wp-content/themes/lakefarm/img/noimage.png'
+                if($(this).find('.item-image-src').attr("src") === false){
+                    var postImg = 'http://lakefarmbeef.co.nz/wp-content/themes/lakefarm/img/noimage.png'
+                }
+                else {
+                    var postImg = $(this).find('.item-image-src').attr("src")
+
                 }
 
                 let article = {
