@@ -33,7 +33,7 @@ module.exports = function(app) {
                 console.log(postImg);
                 console.log(postTitle)
                 if(postImg === null){
-                    postImg = 'http://lakefarmbeef.co.nz/wp-content/themes/lakefarm/img/noimage.png'
+                   let postImg = 'http://lakefarmbeef.co.nz/wp-content/themes/lakefarm/img/noimage.png'
                 }
 
                 let article = {
