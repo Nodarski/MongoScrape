@@ -72,9 +72,9 @@
       $('.commentSubmit').on('click', function(e) {
 
         e.preventDefault();
-
-        if ($(`#${id2}-textArea`).val()) {
         var id2 = $(this).attr('test-id');
+        if ($(`#${id2}-textArea`).val()) {
+        
         var commentt = $(`#${id2}-textArea`).val();
         var commentData = {
           id: id2,
