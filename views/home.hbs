@@ -1,32 +1,38 @@
 
 {{#each articles}}
 
-    <div class='card article-container text-center my-3 mx-auto w-75'>
-        <h4 class='card-header bg-dark text-white'>{{title}}</h4>
-        <h5 class='m-2'>{{synopsis}}</h5>
-        <div class='m-2'>
-            <button class='btn btn-md btn-dark' onclick="window.location.href='{{link}}';">Full Story</button>
-            <button class='btn btn-md btn-dark comment-btn' id='{{_id}}' data-status='closed'>Comments</button>
-        </div>
-        <div class='card comments-section d-none m-2 p-2' id='{{_id}}-allComments'>
+     <div class="post">
+                  
+                  <img class="img"src={{imgUrl}}>
+                   <div class="postText">
+                        <h1 class="postTitle">{{title}}</h1>
+                        <h6 class="postSumm">{{summ}}</h6>
+                  </div>
+                  
+                  <div class="postButts">
+                    <button class="button postUrl">Full Story</button> 
+                    <button class="button comment" data-id={{_id}}>Comments</button>
 
-            {{#each messages}}
+                  </div>
+                 
+            </div>
+            <div class="commentBox" id={{_id}} style="display:none">
+                {{#each notes}}
+                    <div class='comments'>
+                        <h6 class='commentActual'>{{this}}</h6>
+                        <button class='commentRemove button' data-commentID='{{../_id}}' data-commentText='{{this}}'>X</button>
+                    </div>
+                {{/each}}
 
-                <div class='d-flex flex-row my-2 w-100'>
-                    <h6 class='my-auto ml-3 mr-auto'>{{this}}</h6>
-                    <button class='btn btn-dark x-btn ml-auto mr-3' data-commentID='{{../_id}}' data-commentText='{{this}}'>X</button>
+                <form class='commentForm'>
+                <div class="commentInputBox">
+                    <textarea class="commentInput" id="{{_id}}-textArea" rows='1' placeholder="Enter your comment here."></textarea>
                 </div>
+                <button class="commentSubmit button" test-id="{{_id}}">submit</button>
+                </form>
 
-            {{/each}}
+            </div>
 
-            <form class='mt-2'>
-                <div class="form-group">
-                    <textarea class="form-control text-center" id="{{_id}}-textArea" rows='1' placeholder="Enter your comment here."></textarea>
-                </div>
-                <button class="btn btn-dark submit-comment" id="{{_id}}">Submit</button>
-            </form>
-
-        </div>
-    </div>
+   
 
 {{/each}}

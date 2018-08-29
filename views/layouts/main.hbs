@@ -18,89 +18,101 @@
                 <h1 class="titleActual">CryptoNews</h1>
             </div>
             <div class="buttonDiv">
-                <button class="refresh">Refresh News List</button>
-                <button class="clear">Clear News List</button>
+                <button class="button refresh">Refresh News List</button>
+                <button class=" button clear">Clear News List</button>
             </div>
 
 
         </div>
         <div class="bodyPosts">
-            <div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey22
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey22
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey22
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div><div class="testBody">
-                hey
-            </div>
+           {{{body}}}
 
         </div>
 
       </div>
-
-
-
-    {{!-- <div class='container-fluid bg-light'>
-      
-      <div class='row'>
-        <div class='col d-flex flex-column py-3'>
-          <h1 class='mx-auto my-3'>CryptoNews</h1>
-            <button class='btn btn-lg btn-dark get-btn mx-auto py-1'>Refresh News Feed</button>
-            <button class='btn btn-lg btn-dark delete-btn mx-auto py-1'>Clear News List</button>
-        </div>
-      </div>
-
-      <div class='row'>
-        <div class='col d-flex flex-column py-3'>
-          {{{body}}}
-        </div>
-      </div>
-
-    </div> --}}
+ 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <script>
+   $('.refresh').on('click', function() {
+        $.ajax({
+          url: '/new-articles',
+          method: 'GET',
+          success: function(data) {
+            setTimeout(function() {
+              window.location.href = data.redirectURL;
+            }, 2000);          
+          }
+        });
+      });
 
+      $('.clear').on('click', function() {
+        $.ajax({
+          url: '/clear-articles',
+          method: 'DELETE',
+          success: function(response) {
+            window.location.href = response.redirectURL;
+          }
+        });
+      });
+
+      $('.comment').on('click', function() {
+        var id1 = $(this).attr('data-id');
+        var status = $(this).attr('data-status');
+        $('#'+id1).slideToggle();
+       
+      });
+
+
+
+
+      $('.commentSubmit').on('click', function(e) {
+
+        e.preventDefault();
+
+        if ($(`#${id2}-textArea`).val()) {
+        var id2 = $(this).attr('test-id');
+        var commentt = $(`#${id2}-textArea`).val();
+        var commentData = {
+          id: id2,
+          comment: commentt
+        };
+        $.ajax({
+          url: '/create-comment',
+          method: 'PUT',
+          data: commentData,
+          success: function(response) {
+            window.location.href = response.redirectURL;
+          }
+        });
+        }
+        else{
+          alert("comment can't be empty");
+        }
+      });
+
+
+
+      $('.commentRemove').on('click', function(e) {
+        e.preventDefault();
+        var id3 = $(this).attr('data-commentID');
+        var commentText = $(this).attr('data-commentText');
+        var targetComment = { id: id3, comment: commentText };
+        console.log(targetComment);
+        $.ajax({
+          url: '/delete-comment',
+          method: 'DELETE',
+          data: targetComment,
+          success: function(response) {
+            window.location.href = response.redirectURL;
+          }
+        });
+      });
+
+    </script>
 
   </body>
 </html>

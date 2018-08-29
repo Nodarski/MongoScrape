@@ -8,6 +8,7 @@ const cryptoSchema = new Schema({
     title: String,
     summ: String,
     URL: String,
+    imgUrl: String,
     notes: Array
 });
 
