@@ -1,80 +1,76 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Custom CSS -->
-    <link href="/css/style.css" rel="stylesheet">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>C-N</title>
-  </head>
-  <body>
-      <div class="mainContainer">
-        <div class="sideBar">
-            <div class="pageTitle">
-                <h1 class="titleActual">CryptoNews</h1>
-            </div>
-            <div class="buttonDiv">
-                <button class="button refresh">Refresh News List</button>
-                <button class=" button clear">Clear News List</button>
-            </div>
+  <link href="/css/style.css" rel="stylesheet">
 
+  <title>C-N</title>
+</head>
 
-        </div>
-        <div class="bodyPosts">
-           {{{body}}}
-
-        </div>
-
+<body>
+  <div class="mainContainer">
+    <div class="sideBar">
+      <div class="pageTitle">
+        <h1 class="titleActual">CryptoNews</h1>
       </div>
- 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <div class="buttonDiv">
+        <button class="button refresh">Refresh News List</button>
+        <button class=" button clear">Clear News List</button>
+      </div>
 
-    <script>
-   $('.refresh').on('click', function() {
-        $.ajax({
-          url: '/new-articles',
-          method: 'GET',
-          success: function(data) {
-            setTimeout(function() {
-              window.location.href = data.redirectURL;
-            }, 2000);          
-          }
-        });
+
+    </div>
+
+    <div class="bodyPosts">
+      {{{body}}}
+
+    </div>
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+  <script>
+    $('.refresh').on('click', function () {
+      $.ajax({
+        url: '/new-articles',
+        method: 'GET',
+        success: function (data) {
+          setTimeout(function () {
+            window.location.href = data.redirectURL;
+          }, 2000);
+        }
       });
+    });
 
-      $('.clear').on('click', function() {
-        $.ajax({
-          url: '/clear-articles',
-          method: 'DELETE',
-          success: function(response) {
-            window.location.href = response.redirectURL;
-          }
-        });
+    $('.clear').on('click', function () {
+      $.ajax({
+        url: '/clear-articles',
+        method: 'DELETE',
+        success: function (response) {
+          window.location.href = response.redirectURL;
+        }
       });
+    });
 
-      $('.comment').on('click', function() {
-        var id1 = $(this).attr('data-id');
-        var status = $(this).attr('data-status');
-        $('#'+id1).slideToggle();
-       
-      });
+    $('.comment').on('click', function () {
+      var id1 = $(this).attr('data-id');
+      var status = $(this).attr('data-status');
+      $('#' + id1).slideToggle();
 
+    });
 
+    $('.commentSubmit').on('click', function (e) {
 
+      e.preventDefault();
+      var id2 = $(this).attr('test-id');
+      if ($(`#${id2}-textArea`).val()) {
 
-      $('.commentSubmit').on('click', function(e) {
-
-        e.preventDefault();
-        var id2 = $(this).attr('test-id');
-        if ($(`#${id2}-textArea`).val()) {
-        
         var commentt = $(`#${id2}-textArea`).val();
         var commentData = {
           id: id2,
@@ -84,35 +80,32 @@
           url: '/create-comment',
           method: 'PUT',
           data: commentData,
-          success: function(response) {
+          success: function (response) {
             window.location.href = response.redirectURL;
           }
         });
-        }
-        else{
-          alert("comment can't be empty");
+      }
+      else {
+        alert("comment can't be empty");
+      }
+    });
+
+
+    $('.commentRemove').on('click', function (e) {
+      e.preventDefault();
+      var id3 = $(this).attr('data-commentID');
+      var commentText = $(this).attr('data-commentText');
+      var targetComment = { id: id3, comment: commentText };
+      $.ajax({
+        url: '/delete-comment',
+        method: 'DELETE',
+        data: targetComment,
+        success: function (response) {
+          window.location.href = response.redirectURL;
         }
       });
+    });
 
-
-
-      $('.commentRemove').on('click', function(e) {
-        e.preventDefault();
-        var id3 = $(this).attr('data-commentID');
-        var commentText = $(this).attr('data-commentText');
-        var targetComment = { id: id3, comment: commentText };
-        console.log(targetComment);
-        $.ajax({
-          url: '/delete-comment',
-          method: 'DELETE',
-          data: targetComment,
-          success: function(response) {
-            window.location.href = response.redirectURL;
-          }
-        });
-      });
-
-    </script>
-
-  </body>
+  </script>
+</body>
 </html>

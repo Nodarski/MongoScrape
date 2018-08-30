@@ -19,6 +19,6 @@ app.use(parser.json());;
 require('./controllers/controller.js')(app);
 
 app.listen(port, () => {
-    console.log(`Conencted. Port: ${port}`);
+console.log(`Conencted. Port: ${port}`);
 });
 

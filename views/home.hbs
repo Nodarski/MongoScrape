@@ -1,40 +1,39 @@
-
 {{#each articles}}
 
-     <div class="post">
-                  
-                  <img class="img"src={{imgUrl}}>
-                   <div class="postText">
-                        <h1 class="postTitle">{{title}}</h1>
-                        <h6 class="postSumm">{{summ}}</h6>
-                  </div>
-                  
-                  <div class="postButts">
-                    <a class="postUrl" href={{URL}}>
-                    <button class="button postUrl">Full Story</button> 
-                    </a>
-                    <button class="button comment" data-id={{_id}}>Comments</button>
+<div class="post">
+    <img class="img" src={{imgUrl}}>
+    
+    <div class="postText">
+        <h1 class="postTitle">{{title}}</h1>
+        <h6 class="postSumm">{{summ}}</h6>
+    </div>
 
-                  </div>
-                 
-            </div>
-            <div class="commentBox" id={{_id}} style="display:none">
-                {{#each notes}}
-                    <div class='comments'>
-                        <h6 class='commentActual'>{{this}}</h6>
-                        <button class='commentRemove button' data-commentID='{{../_id}}' data-commentText='{{this}}'>X</button>
-                    </div>
-                {{/each}}
+    <div class="postButts">
+        <a class="postUrl" href={{URL}}>
+            <button class="button postUrl">Full Story</button>
+        </a>
+        <button class="button comment" data-id={{_id}}>Comments</button>
+    </div>
+</div>
 
-                <form class='commentForm'>
-                <div class="commentInputBox">
-                    <textarea class="commentInput" id="{{_id}}-textArea" rows='1' placeholder="Enter your comment here."></textarea>
-                </div>
-                <button class="commentSubmit button" test-id="{{_id}}">submit</button>
-                </form>
+<div class="commentBox" id={{_id}} style="display:none">
+    {{#each notes}}
+    
+    <div class='comments'>
+        <h6 class='commentActual'>{{this}}</h6>
+        <button class='commentRemove button' data-commentID='{{../_id}}' data-commentText='{{this}}'>X</button>
+    </div>
+    
+    {{/each}}
 
-            </div>
+    <form class='commentForm'>
+        <div class="commentInputBox">
+            <textarea class="commentInput" id="{{_id}}-textArea" rows='1' placeholder="Enter your comment here."></textarea>
+        </div>
+        
+        <button class="commentSubmit button" test-id="{{_id}}">submit</button>
+    </form>
 
-   
+</div>
 
 {{/each}}
