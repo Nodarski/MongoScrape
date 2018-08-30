@@ -52,6 +52,11 @@ body, div {
     /* border: black solid 1px; */
 }
 
+a {
+    text-decoration: none; /* no underline */
+    padding: 0px;
+  }
+
 .button{
     border: none;
     color: white;
